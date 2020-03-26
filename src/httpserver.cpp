@@ -1,18 +1,13 @@
 #include "httpserver.hpp"
-#include "httpstatic.hpp"
+#include <httplib.h>
+
 #include <iostream>
 
 using namespace httplib;
 
-void HTTPServer::Run() { this->server.listen("0.0.0.0", 8080); }
+void HTTPServer::Run() { this->server->listen("0.0.0.0", 8080); }
 
-HTTPServer::HTTPServer() {
-  AssignStaticFiles(this->server);
-
-  this->server.Get("/hi", [](const Request &req, Response &res) {
-    res.set_content("Hello World!", "text/plain");
-  });
-}
+HTTPServer::HTTPServer() : server(std::make_unique<Server>()) {}
 
 HTTPServer::~HTTPServer() { this->Stop(); }
 
@@ -22,10 +17,12 @@ void HTTPServer::Start() {
 }
 
 void HTTPServer::Stop() {
-  this->server.stop();
+  this->server->stop();
 
   if (this->thread) {
     this->thread->join();
     this->thread.reset();
   }
 }
+
+Server &HTTPServer::GetServer() { return *this->server; }

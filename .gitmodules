@@ -4,6 +4,6 @@
 [submodule "submodules/cpp-httplib"]
 	path = submodules/cpp-httplib
 	url = https://github.com/yhirose/cpp-httplib.git
-[submodule "submodules/incbin"]
-	path = submodules/incbin
-	url = https://github.com/graphitemaster/incbin.git
+[submodule "submodules/json"]
+	path = submodules/json
+	url = https://github.com/nlohmann/json.git

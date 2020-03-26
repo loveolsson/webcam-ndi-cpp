@@ -1,8 +1,9 @@
 #include "httpstatic.hpp"
 #include <httplib.h>
+
+#include <map>
 #include <string>
 #include <utility>
-#include <vector>
 
 #define INCBIN_STYLE INCBIN_STYLE_SNAKE
 #include <incbin.h>
@@ -16,19 +17,20 @@ struct StaticFile {
   const char *type;
 };
 
-INCBIN(Text, "resources/text.txt");
+INCBIN(IndexHtml, "index.html");
+INCBIN(SiteJs, "site.js");
 
-static const std::vector<StaticFile> files = {
-    {"/text.txt", gText_data, gText_size, MIME_txt}
+void AssignStaticFiles(HTTPServer *server) {
+  const std::vector<StaticFile> files = {
+      {"/", gIndexHtml_data, gIndexHtml_size, MIME_html},
+      {"/site.js", gSiteJs_data, gSiteJs_size, MIME_js},
+  };
 
-};
-
-void AssignStaticFiles(Server &server) {
   for (const auto &file : files) {
     auto cb = [file](const Request &req, Response &res) {
       res.set_content((const char *)file.data, file.size, file.type);
     };
 
-    server.Get(file.path, cb);
+    server->GetServer().Get(file.path, cb);
   }
 }

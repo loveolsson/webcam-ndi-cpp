@@ -1,6 +1,5 @@
 #pragma once
 
-#include <httplib.h>
 #include <memory>
 #include <thread>
 
@@ -19,11 +18,15 @@
 #define MIME_xml "application/xml"
 #define MIME_xhtml "application/xhtml+xml"
 
+namespace httplib {
+class Server;
+}
+
 class HTTPServer {
 private:
   void Run();
 
-  httplib::Server server;
+  std::unique_ptr<httplib::Server> server;
   std::unique_ptr<std::thread> thread;
 
 public:
@@ -32,4 +35,6 @@ public:
 
   void Start();
   void Stop();
+
+  httplib::Server &GetServer();
 };
