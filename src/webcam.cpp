@@ -19,7 +19,7 @@ WebCam::WebCam(int index) : capture(std::make_unique<VideoCapture>(index)) {
 
 WebCam::~WebCam() {}
 
-bool WebCam::Valid() { return this->valid; }
+bool WebCam::Valid() const { return this->valid; }
 bool WebCam::SetConfig(Conf conf) {
   if (this->valid) {
     return this->capture->set(CAP_PROP_FPS, conf.fps) &&

@@ -25,7 +25,7 @@ public:
   WebCam(int index);
   ~WebCam();
 
-  bool Valid();
+  bool Valid() const;
   bool SetConfig(Conf conf);
   std::unique_ptr<cv::Mat> GetFrame();
 };

@@ -30,12 +30,12 @@ Settings::~Settings() {
   std::cout << "Saved settings file" << std::endl;
 }
 
-int Settings::GetInt(const std::string &name) const {
+int Settings::GetInt(const std::string &name, int d) const {
   auto find = this->data.find(name);
   if (find == this->data.end()) {
-    return 0;
+    return d;
   } else if (!find->is_number_integer()) {
-    return 0;
+    return d;
   }
 
   return find->get<int>();
@@ -45,12 +45,12 @@ void Settings::SetInt(const std::string &name, int val) {
   this->data[name] = val;
 }
 
-int Settings::GetFloat(const std::string &name) const {
+int Settings::GetFloat(const std::string &name, float d) const {
   auto find = this->data.find(name);
   if (find == this->data.end()) {
-    return 0;
+    return d;
   } else if (!find->is_number_float()) {
-    return 0;
+    return d;
   }
 
   return find->get<float>();
@@ -60,12 +60,13 @@ void Settings::SetFloat(const std::string &name, float val) {
   this->data[name] = val;
 }
 
-std::string Settings::GetString(const std::string &name) const {
+std::string Settings::GetString(const std::string &name,
+                                const std::string &d) const {
   auto find = this->data.find(name);
   if (find == this->data.end()) {
-    return "";
+    return d;
   } else if (!find->is_string()) {
-    return "";
+    return d;
   }
 
   return find->get<std::string>();

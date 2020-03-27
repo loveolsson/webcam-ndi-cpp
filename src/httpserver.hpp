@@ -28,6 +28,7 @@ private:
 
   std::unique_ptr<httplib::Server> server;
   std::unique_ptr<std::thread> thread;
+  std::string url;
 
 public:
   HTTPServer();
@@ -37,4 +38,5 @@ public:
   void Stop();
 
   httplib::Server &GetServer();
+  const std::string &NDIURL() const;
 };

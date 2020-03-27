@@ -1,14 +1,20 @@
 #pragma once
-#include "ndi-sender.hpp"
 #include "webcam.hpp"
 #include <memory>
 
+class NDISender;
+class WebCam;
+class HTTPServer;
+class Settings;
+
 class VideoConnection {
 private:
-  NDISender sender;
   std::unique_ptr<WebCam> webcam;
+  std::unique_ptr<NDISender> sender;
+  Settings &settings;
 
 public:
-  VideoConnection(std::unique_ptr<WebCam> webcam);
+  VideoConnection(int index, std::unique_ptr<WebCam> _webcam,
+                  HTTPServer &server, Settings &_settings);
   ~VideoConnection();
 };

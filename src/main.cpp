@@ -19,7 +19,6 @@ int main() {
   settings.SetInt("bob", 5);
 
   HTTPServer server;
-  NDISender sender;
 
   std::vector<std::unique_ptr<VideoConnection>> connections;
 
@@ -33,8 +32,8 @@ int main() {
                   << std::endl;
       }
 
-      connections.push_back(
-          std::make_unique<VideoConnection>(std::move(webcam)));
+      connections.push_back(std::make_unique<VideoConnection>(
+          i, std::move(webcam), server, settings));
     } else {
       std::cout << "Detected " << i << " camera(s)." << std::endl;
       break;
