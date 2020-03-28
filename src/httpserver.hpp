@@ -1,6 +1,8 @@
 #pragma once
 
+#include <map>
 #include <memory>
+#include <nlohmann/json.hpp>
 #include <thread>
 
 #define MIME_txt "text/plain"
@@ -22,6 +24,10 @@ namespace httplib {
 class Server;
 }
 
+using HTTPJsonReq = nlohmann::json;
+using HTTPJsonRes = std::pair<nlohmann::json, int>;
+using HTTPJsonFn = std::function<HTTPJsonRes(const HTTPJsonReq &)>;
+
 class HTTPServer {
 private:
   void Run();
@@ -39,4 +45,6 @@ public:
 
   httplib::Server &GetServer();
   const std::string &NDIURL() const;
+  void AttachJSONGet(const std::string &path, HTTPJsonFn fn);
+  void AttachJSONPost(const std::string &path, HTTPJsonFn fn);
 };

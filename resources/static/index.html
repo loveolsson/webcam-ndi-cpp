@@ -1,8 +1,20 @@
 <html>
   <head>
     <script src="./site.js"></script>
+    <link rel="stylesheet" href="./bootstrap.min.css">
   </head>
   <body>
-    Hello
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <form>
+            <div class="form-group">
+              <label for="someRange">Some range</label>
+              <input type="range" class="form-control-range" id="someRange" min="0" max="255" step="1">
+            </div>
+          </form>  
+        </div>
+      </div>
+    </div>
   </body>
 </html>

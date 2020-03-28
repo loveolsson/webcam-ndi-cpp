@@ -3,6 +3,7 @@
 #include <iostream>
 
 using namespace httplib;
+using namespace nlohmann;
 
 void HTTPServer::Run() { this->server->listen_after_bind(); }
 
@@ -38,3 +39,31 @@ void HTTPServer::Stop() {
 Server &HTTPServer::GetServer() { return *this->server; }
 
 const std::string &HTTPServer::NDIURL() const { return this->url; }
+
+void HTTPServer::AttachJSONGet(const std::string &path, HTTPJsonFn fn) {
+  this->server->Get(path.c_str(), [fn](const Request &req, Response &res) {
+    auto body = json::object();
+
+    for (const auto &param : req.params) {
+      body[param.first] = param.second;
+    }
+
+    auto ret = fn(body);
+    res.set_content(ret.first.dump(), MIME_json);
+    res.status = ret.second;
+  });
+}
+
+void HTTPServer::AttachJSONPost(const std::string &path, HTTPJsonFn fn) {
+  this->server->Post(path.c_str(), [fn](const Request &req, Response &res) {
+    try {
+      auto body = json::parse(req.body);
+      auto ret = fn(body);
+      res.set_content(ret.first.dump(), MIME_json);
+      res.status = ret.second;
+    } catch (json::exception &ex) {
+      res.set_content(ex.what(), MIME_txt);
+      res.status = 500;
+    }
+  });
+}

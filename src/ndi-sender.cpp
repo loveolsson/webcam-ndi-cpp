@@ -26,7 +26,7 @@ void NDISender::PushFrame(uint8_t *data, int width, int height) {
   frame.yres = height;
   frame.FourCC = NDIlib_FourCC_video_type_BGRX;
 
-  NDIlib_send_send_video_async_v2(this->sender, &frame);
+  NDIlib_send_send_video_v2(this->sender, &frame);
 }
 
 NDISender::NDISender(const std::string &name, const std::string &url) {
@@ -35,7 +35,7 @@ NDISender::NDISender(const std::string &name, const std::string &url) {
 
   this->sender = NDIlib_send_create(&source);
 
-  char p_capabilities[256];
+  char p_capabilities[128];
   int len = snprintf(p_capabilities, sizeof(p_capabilities),
                      "<ndi_capabilities web_control=\"%s\" />", url.c_str());
 

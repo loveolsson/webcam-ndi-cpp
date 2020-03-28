@@ -9,7 +9,6 @@ using NDIPushFn = std::function<void(uint8_t *data, int width, int height)>;
 using NDIReqFn = std::function<bool(NDIPushFn &)>;
 
 class NDISender {
-public:
 private:
   void Run();
   void PushFrame(uint8_t *data, int width, int height);

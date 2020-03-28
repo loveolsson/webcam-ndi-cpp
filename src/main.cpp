@@ -49,5 +49,7 @@ int main() {
     std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
 
+  server.Stop();
+
   return EXIT_SUCCESS;
 }

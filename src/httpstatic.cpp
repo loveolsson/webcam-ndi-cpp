@@ -19,11 +19,14 @@ struct StaticFile {
 
 INCBIN(IndexHtml, "index.html");
 INCBIN(SiteJs, "site.js");
+INCBIN(BootstrapMinCss, "bootstrap.min.css");
 
 void AssignStaticFiles(HTTPServer *server) {
   const std::vector<StaticFile> files = {
       {"/", gIndexHtml_data, gIndexHtml_size, MIME_html},
       {"/site.js", gSiteJs_data, gSiteJs_size, MIME_js},
+      {"/bootstrap.min.css", gBootstrapMinCss_data, gBootstrapMinCss_size,
+       MIME_css},
   };
 
   for (const auto &file : files) {
