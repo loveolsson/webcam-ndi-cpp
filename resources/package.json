@@ -16,7 +16,7 @@
   "dependencies": {
     "@types/axios": "^0.14.0",
     "@types/jquery": "^3.3.34",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "browserify": "^16.5.0",
     "jquery": "^3.5.0",
     "prettier": "^2.0.2",
