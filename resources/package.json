@@ -18,7 +18,7 @@
     "@types/jquery": "^3.3.34",
     "axios": "^0.19.2",
     "browserify": "^16.5.0",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "prettier": "^2.0.2",
     "tinyify": "^2.5.2",
     "typescript": "^3.8.3"
